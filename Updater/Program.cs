@@ -45,7 +45,7 @@ namespace Updater
         {
             if (args.Length == 1)
             {
-                if (args[0] == "Notepad")
+                if (args[0] == "MM Client")
                 {
                     KillProcessAsync(args[0]);
                     await GetJsonDataAsync("https://fosorx.github.io/update.json");
