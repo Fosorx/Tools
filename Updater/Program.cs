@@ -28,17 +28,26 @@ namespace Updater
             webClient.DownloadFile(new System.Uri(url), fileName);
         }
 
-        private static void KillProcessAsync(string processName)
+        private static void KillProcess(string processName)
         {
-
-            Process[] runningProcesses = Process.GetProcesses();
-            foreach (Process process in runningProcesses)
+            try
             {
-                if (process.ProcessName == processName)
+                Process[] runningProcesses = Process.GetProcesses();
+                foreach (Process process in runningProcesses)
                 {
-                    process.CloseMainWindow();
+                    if (process.ProcessName == processName)
+                    {
+                        process.Kill();
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.ReadLine();
+            }
+            
+
         }
 
         static async Task Main(string[] args)
@@ -47,9 +56,9 @@ namespace Updater
             {
                 if (args[0] == "MM Client")
                 {
-                    KillProcessAsync(args[0]);
+                    KillProcess(args[0]);
                     await GetJsonDataAsync("https://fosorx.github.io/update.json");
-                    //await DownloadFileAsync(urlDownload, "MM Client.exe");
+                    await DownloadFileAsync("https://github.com/Fosorx/Tools/releases/download/v1.0.0/MM.Client.exe", "MM Client.exe");
 
                 }
                 else if (args[0] == "MM Services")

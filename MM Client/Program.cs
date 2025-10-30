@@ -2,9 +2,11 @@
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            CheckUpdate checkUpdate = new CheckUpdate();
+
+            await checkUpdate.NewUpdate();
         }
     }
 }
